@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 final class Type extends Model
 {
     protected $fillable = ['name'];
+    protected $table = 'ticket_types';
 
     public function tickets()
     {
