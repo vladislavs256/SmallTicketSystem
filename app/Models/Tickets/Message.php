@@ -6,9 +6,9 @@ namespace App\Models\Tickets;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-final class TicketStatus extends Model
+final class Message extends Model
 {
-    protected $fillable = ['ticket_id', 'user_id', 'status'];
+    protected $fillable = ['ticket_id', 'user_id', 'message'];
 
     public function ticket()
     {
