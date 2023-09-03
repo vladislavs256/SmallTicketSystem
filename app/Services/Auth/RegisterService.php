@@ -19,7 +19,6 @@ final class RegisterService
             $request['password']
         );
 
-//        $this->mailer->to($user->email)->send(new VerifyMail($user));
         event(new Registered($user));
         Auth::login($user);
 
