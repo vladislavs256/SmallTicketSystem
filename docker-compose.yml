@@ -1,0 +1,26 @@
+version: '3'
+services:
+    nginx:
+        build:
+            context: ./
+            dockerfile: docker/nginx.docker
+        volumes:
+            - ./:/var/www
+        ports:
+            - "8080:80"
+        links:
+            - php-fpm
+    php-fpm:
+        build:
+            context: ./
+            dockerfile: docker/php-fpm.docker
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - sqlite
+    sqlite:
+        image: keinos/sqlite3
+        volumes:
+            - ./data:/db
+        command: sh -c "sqlite3 /db/database.db .dump > /db/dump.sql"
+
