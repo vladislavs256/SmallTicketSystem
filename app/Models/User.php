@@ -3,8 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Enum\Roles;
-use App\Models\Enum\Statuses;
+use App\Models\Enum\UserRoles;
+use App\Models\Enum\UserStatuses;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,8 +56,8 @@ class User extends Authenticatable
             'email' => $email,
             'password' => bcrypt($password),
             'verify_token' => Str::uuid(),
-            'status' => Statuses::Wait,
-            'role' => Roles::User,
+            'status' => UserStatuses::Wait,
+            'role' => UserRoles::User,
         ]);
     }
 }
