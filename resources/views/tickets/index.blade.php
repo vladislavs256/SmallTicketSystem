@@ -6,7 +6,16 @@
                 <th><a href="#" class="sort-link" data-column="id">ID</a></th>
                 <th><a href="#" class="sort-link" data-column="subject">Subject</a></th>
                 <th><a href="#" class="sort-link" data-column="content">Content</a></th>
-                <th><a href="#" class="sort-link" data-column="type">Type</a></th>
+                <th>
+                    <label for="type-filter">Filter by Type:</label>
+                    <select id="type-filter">
+                        <option value="">All</option>
+                        @foreach($ticketTypes as $type)
+                            <option value="{{ $type->name }}">{{ $type->name }}</option>
+                        @endforeach
+                    </select>
+                </th>
+
                 <th><a href="#" class="sort-link" data-column="created">Created</a></th>
                 <th><a href="#" class="sort-link" data-column="updated">Updated</a></th>
                 <th><a href="#" class="sort-link" data-column="status">Status</a></th>
@@ -30,7 +39,7 @@
     });
 
     $(document).ready(function() {
-        $('#tickets').DataTable({
+       table = $('#tickets').DataTable({
             "ajax": {
                 "url": "/tickets/data",
                 "type": "GET",
@@ -39,7 +48,9 @@
                 { "data": "id" },
                 { "data": "subject" },
                 { "data": "content" },
-                { "data": "type_name" },
+                { "data": "type_name",
+                orderable: false,
+                },
                 { "data": "created_at" },
                 { "data": "updated_at" },
                 {
@@ -60,6 +71,18 @@
                         return '<a href="' + data + '">' + "View" + '</a>';
                     }
                 }            ],
+
+
         });
+        function applyFilter(selectedType) {
+            table.column(3).search(selectedType).draw();
+        }
+
+        $('#type-filter').on('change', function () {
+            var selectedType = $(this).val();
+            applyFilter(selectedType);
+        });
+
     });
 </script>
+

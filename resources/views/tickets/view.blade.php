@@ -38,9 +38,9 @@
                     <th class="border border-gray-300 py-2 px-4">Status</th>
                     <td class="border border-gray-300 py-2 px-4">
                         @if ($ticket->isOpen())
-                            <span class="bg-red-500 text-white py-1 px-2 rounded">Open</span>
+                            <span class="bg-red-500 text-white py-1 px-2 rounded">New</span>
                         @elseif ($ticket->isApproved())
-                            <span class="bg-blue-500 text-white py-1 px-2 rounded">Active</span>
+                            <span class="bg-blue-500 text-white py-1 px-2 rounded">Progress</span>
                         @elseif ($ticket->isClosed())
                             <span class="bg-gray-500 text-black-50 py-1 px-2 rounded">Closed</span>
                         @endif
@@ -65,9 +65,9 @@
                         <td class="border border-gray-300 py-2 px-4">{{ $status->user->name }}</td>
                         <td class="border border-gray-300 py-2 px-4">
                             @if ($status->isOpen())
-                                <span class="bg-red-500 text-white py-1 px-2 rounded">Open</span>
+                                <span class="bg-red-500 text-white py-1 px-2 rounded">New</span>
                             @elseif ($status->isApproved())
-                                <span class="bg-blue-500 text-white py-1 px-2 rounded">Approved</span>
+                                <span class="bg-blue-500 text-white py-1 px-2 rounded">Progress</span>
                             @elseif ($status->isClosed())
                                 <span class="bg-gray-500 text-black-50 py-1 px-2 rounded">Closed</span>
                             @endif

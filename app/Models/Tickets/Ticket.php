@@ -46,9 +46,9 @@ class Ticket extends Model
             'user_id' => $userId,
             'subject' => $subject,
             'content' => $content,
-            'status' => Status::OPEN,
+            'status' => Status::NEW,
         ]);
-        $ticket->setStatus(Status::OPEN, $userId);
+        $ticket->setStatus(Status::NEW, $userId);
 
         return $ticket;
     }
@@ -83,7 +83,7 @@ class Ticket extends Model
         if ($this->isApproved()) {
             throw new \DomainException('Ticket is already approved.');
         }
-        $this->setStatus(Status::APPROVED, $userId);
+        $this->setStatus(Status::PROGRESS, $userId);
     }
 
     public function close(int $userId): void
@@ -99,17 +99,17 @@ class Ticket extends Model
         if (! $this->isClosed()) {
             throw new \DomainException('Ticket is not closed.');
         }
-        $this->setStatus(Status::APPROVED, $userId);
+        $this->setStatus(Status::PROGRESS, $userId);
     }
 
     public function isOpen(): bool
     {
-        return $this->status === Status::OPEN;
+        return $this->status === Status::NEW;
     }
 
     public function isApproved(): bool
     {
-        return $this->status === Status::APPROVED;
+        return $this->status === Status::PROGRESS;
     }
 
     public function isClosed(): bool

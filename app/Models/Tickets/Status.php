@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Status extends Model
 {
-    public const OPEN = 'open';
+    public const NEW = 'new';
 
-    public const APPROVED = 'approved';
+    public const PROGRESS = 'in progress';
 
     public const CLOSED = 'closed';
 
@@ -22,20 +22,20 @@ final class Status extends Model
     public static function statusesList(): array
     {
         return [
-            self::OPEN => 'Open',
-            self::APPROVED => 'Approved',
+            self::NEW => 'New',
+            self::PROGRESS => 'In Progress',
             self::CLOSED => 'Closed',
         ];
     }
 
     public function isOpen(): bool
     {
-        return $this->status === self::OPEN;
+        return $this->status === self::NEW;
     }
 
     public function isApproved(): bool
     {
-        return $this->status === self::APPROVED;
+        return $this->status === self::PROGRESS;
     }
 
     public function isClosed(): bool

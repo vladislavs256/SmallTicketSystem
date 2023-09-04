@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tickets\Ticket;
+use App\Models\Tickets\Type;
 use App\Services\Ticket\TicketService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +22,9 @@ final class TicketController extends Controller
     public function index()
     {
         $tickets = Ticket::forUser(Auth::user())->orderBy('id')->paginate(20);
+        $ticketTypes = Type::all();
 
-        return view('tickets.index', compact('tickets'));
+        return view('tickets.index', compact('tickets', 'ticketTypes'));
     }
 
     public function view(Ticket $ticket)
