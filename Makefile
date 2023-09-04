@@ -1,4 +1,7 @@
 
+chmod:
+	sudo chmod 777 -R storage/
 
 init:
-	sudo chmod 777 -R storage/
+	docker-compose up -d
+	npm run dev

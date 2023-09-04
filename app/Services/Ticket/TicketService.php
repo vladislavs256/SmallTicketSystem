@@ -5,6 +5,7 @@ namespace App\Services\Ticket;
 
 use App\Models\Tickets\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 final class TicketService
 {
@@ -57,11 +58,12 @@ final class TicketService
             return [
                 'id' => $ticket->id,
                 'subject' => $ticket->subject,
-                'content' => $ticket->content,
+                'content' => Str::limit($ticket->content, 50),
                 'type_name' => $ticket->typeName(),
-                'created_at' => $ticket->created_at,
-                'updated_at' => $ticket->updated_at,
+                'created_at' => $ticket->created_at->format("d/m/Y"),
+                'updated_at' => $ticket->updated_at->format("d/m/Y"),
                 'status' => $ticket->status,
+                'link' => route('ticket.view', ['ticket' => $ticket->id])
             ];
         });
     }

@@ -26,6 +26,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [TicketController::class, 'index'])->name('ticket.index');
     Route::get('/tickets/data', [TicketController::class, 'getTicketsData'])->name('tickets.data');
+    Route::get('/tickets/{ticket}', [TicketController::class, 'view'])->name('ticket.view');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

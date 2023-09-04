@@ -10,27 +10,11 @@
                 <th><a href="#" class="sort-link" data-column="created">Created</a></th>
                 <th><a href="#" class="sort-link" data-column="updated">Updated</a></th>
                 <th><a href="#" class="sort-link" data-column="status">Status</a></th>
-            </tr>
 
+                <th><a href="#" class="sort-link" data-column="status" onclick="loadData()">Link</a></th>
+            </tr>
             </thead>
-{{--            <tbody> @foreach ($tickets as $ticket)--}}
-{{--                <tr>--}}
-{{--                    <td class="border px-4 py-2">{{ $ticket->id }}</td>--}}
-{{--                    <td class="border px-4 py-2">{{ $ticket->subject }}</td>--}}
-{{--                    <td class="border px-4 py-2">{{ $ticket->content }}</td>--}}
-{{--                    <td class="border px-4 py-2">{{ $ticket->type_id }}</td>--}}
-{{--                    <td class="border px-4 py-2">{{ $ticket->created_at }}</td>--}}
-{{--                    <td class="border px-4 py-2">{{ $ticket->updated_at }}</td>--}}
-{{--                    <td class="border px-4 py-2">--}}
-{{--                        @if ($ticket->isOpen())--}}
-{{--                            <span class="inline-block bg-red-500 text-white px-2 py-1 rounded">Open</span>--}}
-{{--                        @elseif ($ticket->isApproved())--}}
-{{--                            <span class="inline-block bg-blue-500 text-white px-2 py-1 rounded">Approved</span>--}}
-{{--                        @elseif ($ticket->isClosed())--}}
-{{--                            <span class="inline-block bg-gray-500 text-black-50 px-2 py-1 rounded">Closed</span>--}}
-{{--                        @endif </td>--}}
-{{--                </tr>--}}
-{{--            @endforeach </tbody>--}}
+
         </table>
     </div>
     {{ $tickets->links() }}
@@ -62,7 +46,14 @@
                 { "data": "created_at" },
                 { "data": "updated_at" },
                 { "data": "status" },
-            ],
+                {
+                    // Use columns.render to create a custom cell content with an <a> element
+                    "data": "link",
+                    "orderable": false,
+                    "render": function(data, type, row) {
+                        return '<a href="' + data + '">' + "View" + '</a>';
+                    }
+                }            ],
         });
     });
 </script>

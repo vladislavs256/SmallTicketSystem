@@ -24,6 +24,10 @@ final class TicketController extends Controller
         return view('tickets.index', compact('tickets'));
     }
 
+    public function view(Ticket $ticket)
+    {
+        dd($ticket);
+    }
 
     public function getTicketsData(Request $request)
     {
