@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Tickets\Ticket;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +24,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('manage-own-ticket', function (User $user, Ticket $ticket) {
+            return $ticket->user_id === $user->id;
+        });
+
+        Gate::define('manage-tickets', function (User $user) {
+            return $user->isAdmin() || $user->isModerator();
+        });
     }
 }

@@ -19,10 +19,7 @@
     </div>
     {{ $tickets->links() }}
 </x-app-layout>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-<script src="https:////cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 
 <script>
@@ -45,7 +42,16 @@
                 { "data": "type_name" },
                 { "data": "created_at" },
                 { "data": "updated_at" },
-                { "data": "status" },
+                {
+                    "data": "status",
+                    "render": function(data, type, full, meta) {
+                        if (data !== 'closed') {
+                            return  "Status is " + full.status + '  <a href="/ticket/close/' + full.id + '">Close</a>';
+                        } else {
+                            return data;
+                        }
+                    }
+                },
                 {
                     // Use columns.render to create a custom cell content with an <a> element
                     "data": "link",

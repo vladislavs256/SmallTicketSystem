@@ -3,15 +3,16 @@
 namespace App\Models\Tickets;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class Ticket extends Model
 {
     use HasFactory;
 
     protected $table = 'ticket_tickets';
+
     protected $fillable = ['user_id', 'subject', 'content', 'status', 'type_id', 'attached_files'];
 
     public function user()
@@ -23,6 +24,7 @@ class Ticket extends Model
     {
         return $this->type->name;
     }
+
     public function type()
     {
         return $this->belongsTo(Type::class, 'type_id');
@@ -38,8 +40,6 @@ class Ticket extends Model
         return $this->hasMany(Message::class);
     }
 
-
-
     public static function new(int $userId, string $subject, string $content): self
     {
         $ticket = self::create([
@@ -49,6 +49,7 @@ class Ticket extends Model
             'status' => Status::OPEN,
         ]);
         $ticket->setStatus(Status::OPEN, $userId);
+
         return $ticket;
     }
 
@@ -62,7 +63,7 @@ class Ticket extends Model
 
     public function addMessage(int $userId, $message): void
     {
-        if (!$this->allowsMessages()) {
+        if (! $this->allowsMessages()) {
             throw new \DomainException('Ticket is closed for messages.');
         }
         $this->messages()->create([
@@ -74,7 +75,7 @@ class Ticket extends Model
 
     public function allowsMessages(): bool
     {
-        return !$this->isClosed();
+        return ! $this->isClosed();
     }
 
     public function approve(int $userId): void
@@ -95,7 +96,7 @@ class Ticket extends Model
 
     public function reopen(int $userId): void
     {
-        if (!$this->isClosed()) {
+        if (! $this->isClosed()) {
             throw new \DomainException('Ticket is not closed.');
         }
         $this->setStatus(Status::APPROVED, $userId);
@@ -120,7 +121,6 @@ class Ticket extends Model
     {
         return $this->isOpen();
     }
-
 
     private function setStatus($status, ?int $userId): void
     {

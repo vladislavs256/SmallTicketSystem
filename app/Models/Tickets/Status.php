@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models\Tickets;
@@ -9,10 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 final class Status extends Model
 {
     public const OPEN = 'open';
+
     public const APPROVED = 'approved';
+
     public const CLOSED = 'closed';
 
     protected $table = 'ticket_statuses';
+
     protected $fillable = ['ticket_id', 'user_id', 'status'];
 
     public static function statusesList(): array
@@ -38,6 +42,7 @@ final class Status extends Model
     {
         return $this->status === self::CLOSED;
     }
+
     public function ticket()
     {
         return $this->belongsTo(Ticket::class);

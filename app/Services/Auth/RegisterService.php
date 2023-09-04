@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\Auth;
@@ -6,7 +7,6 @@ namespace App\Services\Auth;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 
 final class RegisterService
@@ -21,7 +21,6 @@ final class RegisterService
 
         event(new Registered($user));
         Auth::login($user);
-
 
     }
 

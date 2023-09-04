@@ -40,7 +40,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-
         Schema::create('ticket_messages', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('ticket_id');

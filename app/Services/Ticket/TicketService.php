@@ -1,14 +1,28 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\Ticket;
 
+use App\Http\Requests\Ticket\MessageRequest;
 use App\Models\Tickets\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 final class TicketService
 {
+    public function close(int $userId, int $id): void
+    {
+        $ticket = $this->getTicket($id);
+        $ticket->close($userId);
+    }
+
+    public function message(int $userId, int $id, MessageRequest $request): void
+    {
+        $ticket = $this->getTicket($id);
+        $ticket->addMessage($userId, $request['message']);
+    }
+
     public function getTicketsData(Request $request)
     {
         $query = Ticket::query();
@@ -30,7 +44,7 @@ final class TicketService
     private function applyFilters(Request $request, $query)
     {
         if ($request->has('search.value')) {
-            $query->where('subject', 'like', '%' . $request->input('search.value') . '%');
+            $query->where('subject', 'like', '%'.$request->input('search.value').'%');
         }
 
         return $query;
@@ -60,13 +74,16 @@ final class TicketService
                 'subject' => $ticket->subject,
                 'content' => Str::limit($ticket->content, 50),
                 'type_name' => $ticket->typeName(),
-                'created_at' => $ticket->created_at->format("d/m/Y"),
-                'updated_at' => $ticket->updated_at->format("d/m/Y"),
+                'created_at' => $ticket->created_at->format('d/m/Y'),
+                'updated_at' => $ticket->updated_at->format('d/m/Y'),
                 'status' => $ticket->status,
-                'link' => route('ticket.view', ['ticket' => $ticket->id])
+                'link' => route('ticket.view', ['ticket' => $ticket->id]),
             ];
         });
     }
 
-
+    private function getTicket($id): Ticket
+    {
+        return Ticket::findOrFail($id);
+    }
 }
