@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 
 class Ticket extends Model
 {
@@ -40,14 +41,26 @@ class Ticket extends Model
         return $this->hasMany(Message::class);
     }
 
-    public static function new(int $userId, string $subject, string $content): self
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class, 'ticket_id');
+    }
+
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+    public static function new(int $userId, string $subject, string $content, int $typeId): self
     {
         $ticket = self::create([
             'user_id' => $userId,
             'subject' => $subject,
             'content' => $content,
             'status' => Status::NEW,
+            'type_id' => $typeId,
         ]);
+
+
         $ticket->setStatus(Status::NEW, $userId);
 
         return $ticket;

@@ -21,6 +21,8 @@
                 <th><a href="#" class="sort-link" data-column="status">Status</a></th>
 
                 <th><a href="#" class="sort-link" data-column="status" onclick="loadData()">Link</a></th>
+                <th><a href="#" class="sort-link" data-column="updated">Comment</a></th>
+
             </tr>
             </thead>
 
@@ -57,7 +59,7 @@
                     "data": "status",
                     "render": function(data, type, full, meta) {
                         if (data !== 'closed') {
-                            return  "Status is " + full.status + '  <a href="/ticket/close/' + full.id + '">Close</a>';
+                            return 'Status is '+ data + ' <button class="btn-close" data-ticket-id="' + full.id + '">Close Ticket</button>';
                         } else {
                             return data;
                         }
@@ -70,10 +72,48 @@
                     "render": function(data, type, row) {
                         return '<a href="' + data + '">' + "View" + '</a>';
                     }
-                }            ],
+                },
+                {
+                    "data": "id",
+                    "orderable": false,
+                    "render": function (data, type, row) {
+                        if (row.status === 'closed') {
+                            return 'Closed';
+                        } else {
+                            return `
+                <button class="btn-comment" data-ticket-id="${data}">Comment</button>
+            `;
+                        }
+                    }
+                }
+            ],
 
 
         });
+
+        $('#tickets').on('click', '.btn-close', function() {
+            var ticketId = $(this).data('ticket-id');
+
+            $.ajax({
+                type: 'POST',
+                url: '/ticket/close/' + ticketId, // Replace with the actual URL to close the ticket
+                data: {
+                    _token: '{{ csrf_token() }}', // Include CSRF token for Laravel
+                },
+                success: function(data) {
+                    // Handle the success response here, e.g., update the UI
+                    console.log('Ticket closed successfully');
+
+                    // Reload the DataTable to reflect the updated data
+                    table.ajax.reload();
+                },
+                error: function(error) {
+                    // Handle any errors here
+                    console.error('Error closing ticket:', error);
+                }
+            });
+        });
+
         function applyFilter(selectedType) {
             table.column(3).search(selectedType).draw();
         }
@@ -82,6 +122,7 @@
             var selectedType = $(this).val();
             applyFilter(selectedType);
         });
+
 
     });
 </script>

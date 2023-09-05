@@ -2,14 +2,14 @@
     <div class="flex flex-row mb-3">
         @if ($ticket->canBeRemoved())
 
-            <form method="POST" action="
-{{--            {{ route('cabinet.tickets.destroy', $ticket) }}--}}
-            " class="mr-1">
+            <form method="POST" action="{{ route('ticket.destroy', $ticket) }}" class="mr-1">
                 @csrf
                 @method('DELETE')
                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
             </form>
-            <form method="GET" action="{{ route('ticket.delete', ['ticket' => $ticket])}}">
+            <form method="POST" action="{{ route('ticket.close', ['ticket' => $ticket])}}">
+                @csrf
+                @method('POST')
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Close</button>
 
             </form>
@@ -46,6 +46,50 @@
                         @endif
                     </td>
                 </tr>
+                <tr>
+                    <th class="border border-gray-300 py-2 px-4">Type</th>
+                    <td class="border border-gray-300 py-2 px-4">{{ $ticket->typeName() }}</td>
+                </tr>
+                <tr>
+                    <th class="border border-gray-300 py-2 px-4">Author</th>
+                    <td class="border border-gray-300 py-2 px-4">{{ $ticket->user->name }}</td>
+                </tr>
+                <tr>
+                    @if($ticket->getAttachments()->count() > 0)
+                        @foreach($ticket->getAttachments() as $attachment)
+                            <th class="border border-gray-300 py-2 px-4">Files</th>
+
+                            <td class="border border-gray-300 py-2 px-4">
+                                <ul>
+                                    <li>
+                                        Name: {{ $attachment->filename }},
+                                        <a href="{{ Storage::url($attachment->path)  }}">View link</a>,
+                                        ID: {{ $attachment->id }}
+                                        <a href="{{ Storage::url($attachment->path) }}" download="{{$attachment->name}}.jpg">Download Attachment</a>
+                                    </li>
+                                </ul>
+
+                            </td>
+                </tr>
+
+                @endforeach
+                @else
+                    No attachments found.
+                @endif
+                <tr>
+                    <th class="border border-gray-300 py-2 px-4">Author</th>
+                    <td class="border border-gray-300 py-2 px-4">{{ $ticket->user->name }}</td>
+                </tr>
+                <tr>
+                    <th class="border border-gray-300 py-2 px-4">Author</th>
+                    <td class="border border-gray-300 py-2 px-4">{{ $ticket->user->name }}</td>
+                </tr>
+                <tr>
+                    <th class="border border-gray-300 py-2 px-4">Author</th>
+                    <td class="border border-gray-300 py-2 px-4">{{ $ticket->user->name }}</td>
+                </tr>
+
+
                 </tbody>
             </table>
         </div>
@@ -88,7 +132,8 @@
 
     @foreach ($ticket->messages()->orderBy('id')->with('user')->get() as $message)
         <div class="mb-5">
-            <div class="bg-gray-200 py-2 px-4 text-xl font-semibold">{{ $message->created_at }} by {{ $message->user->name }}</div>
+            <div class="bg-gray-200 py-2 px-4 text-xl font-semibold">{{ $message->created_at }}
+                by {{ $message->user->name }}</div>
             <div class="bg-white border border-gray-300 p-4">
                 {!! nl2br(e($message->message)) !!}
             </div>
@@ -101,7 +146,9 @@
             @csrf
             <div class="mb-5">
                 <label>
-                    <textarea class="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" name="message" rows="3" required>{{ old('message') }}</textarea>
+                    <textarea
+                        class="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                        name="message" rows="3" required>{{ old('message') }}</textarea>
                 </label>
                 @if ($errors->has('message'))
                     <p class="text-red-500 text-sm mt-1">{{ $errors->first('message') }}</p>
@@ -109,7 +156,9 @@
             </div>
 
             <div class="mb-5">
-                <button type="button" id="sendMessageButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send Message</button>
+                <button type="button" id="sendMessageButton"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send Message
+                </button>
             </div>
         </form>
 
@@ -154,7 +203,6 @@
                 });
         }
     });
-
 
 
 </script>

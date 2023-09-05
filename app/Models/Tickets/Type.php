@@ -12,6 +12,8 @@ final class Type extends Model
 
     protected $table = 'ticket_types';
 
+
+
     public function tickets()
     {
         return $this->hasMany(Ticket::class);

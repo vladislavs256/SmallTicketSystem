@@ -16,7 +16,16 @@ final class TicketController extends Controller
         private TicketService $service
     ) {
     }
-
+    public function reopen(Ticket $ticket)
+    {
+        $this->checkAccess($ticket);
+        try {
+            $this->service->reopen(Auth::id(), $ticket->id);
+        }catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+        return back();
+    }
     public function message(Ticket $ticket, MessageRequest $request)
     {
         try {
@@ -24,8 +33,6 @@ final class TicketController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
-
             return back();
-        //        return redirect()->route('cabinet.tickets.show', $ticket);
     }
 }

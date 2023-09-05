@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Ticket\CreateRequest;
+use App\Models\Tickets\Attachment;
 use App\Models\Tickets\Ticket;
 use App\Models\Tickets\Type;
 use App\Services\Ticket\TicketService;
@@ -21,7 +23,7 @@ final class TicketController extends Controller
 
     public function index()
     {
-        $tickets = Ticket::forUser(Auth::user())->orderBy('id')->paginate(20);
+        $tickets = Ticket::forUser(Auth::user())->orderBy('id')->paginate(100);
         $ticketTypes = Type::all();
 
         return view('tickets.index', compact('tickets', 'ticketTypes'));
@@ -29,9 +31,36 @@ final class TicketController extends Controller
 
     public function view(Ticket $ticket)
     {
-        return view('tickets.view', compact('ticket'));
+        return view('tickets.view', compact('ticket', ));
     }
 
+    public function create()
+    {
+        $types = Type::query()->get();
+        return view('tickets.create', compact('types'));
+    }
+    public function destroy(Ticket $ticket)
+    {
+        $this->checkAccess($ticket);
+        try {
+            $this->service->removeByOwner($ticket->id);
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('ticket.index');
+    }
+
+    public function store(CreateRequest $request)
+    {
+        try {
+            $ticket = $this->service->create(Auth::id(), $request);
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('ticket.view', $ticket);
+    }
     public function getTicketsData(Request $request)
     {
         $responseData = $this->service->getTicketsData($request);
@@ -53,7 +82,7 @@ final class TicketController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return back();
+        return redirect()->route('ticket.view', ['ticket' => $ticket->id]);
     }
 
     private function checkAccess(Ticket $ticket): void
