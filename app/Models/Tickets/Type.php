@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models\Tickets;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 final class Type extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['name'];
 
     protected $table = 'ticket_types';

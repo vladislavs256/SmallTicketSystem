@@ -22,9 +22,9 @@ class TicketFactory extends Factory
         return [
             'user_id' => random_int(1, 10),
             'subject' => fake()->title(),
-            'content' => fake()->text(200),
+            'content' => fake()->text(),
             'status' => 'new',
-            'type_id' => random_int(1, 3),
+            'type_id' => random_int(1,3),
             'attached_files' => null,
         ];
     }

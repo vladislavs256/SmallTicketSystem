@@ -83,7 +83,6 @@ final class TicketService
 
     public function create(int $userId, CreateRequest $request): Ticket
     {
-
         $ticket = Ticket::new($userId,
             $request['subject'],
             $request['content'],
