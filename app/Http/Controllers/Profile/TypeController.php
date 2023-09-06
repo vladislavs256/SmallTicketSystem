@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Profile;
@@ -20,6 +21,7 @@ final class TypeController extends Controller
     public function index()
     {
         $types = Type::all();
+
         return view('type.index', ['types' => $types]);
     }
 
@@ -27,7 +29,6 @@ final class TypeController extends Controller
     {
         return view('type.create');
     }
-
 
     public function editForm(Type $type)
     {
@@ -52,8 +53,10 @@ final class TypeController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
+
         return redirect()->route('type.index');
     }
+
     public function store(CreateRequest $request)
     {
         try {
@@ -61,6 +64,7 @@ final class TypeController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
+
         return redirect()->route('type.index', $type);
     }
 }

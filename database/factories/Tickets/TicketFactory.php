@@ -20,7 +20,7 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => random_int(1,10),
+            'user_id' => random_int(1, 10),
             'subject' => fake()->title(),
             'content' => fake()->text(200),
             'status' => 'new',

@@ -7,7 +7,7 @@
                 @method('DELETE')
                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
             </form>
-            <form method="POST" action="{{ route('ticket.close', ['ticket' => $ticket])}}">
+            <form method="POST" action="{{ route('ticket.close', ['ticket' => $ticket]) }}">
                 @csrf
                 @method('POST')
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Close</button>

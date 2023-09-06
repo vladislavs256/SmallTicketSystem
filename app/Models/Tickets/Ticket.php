@@ -128,6 +128,7 @@ class Ticket extends Model
     {
         return $this->status === Status::CLOSED;
     }
+
     public function scopeNotClosed($query)
     {
         return $query->where('status', '!=', Status::CLOSED);

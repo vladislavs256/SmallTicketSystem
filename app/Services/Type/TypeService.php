@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\Type;
@@ -9,7 +10,6 @@ use App\Models\Tickets\Type;
 
 final class TypeService
 {
-
     public function create(CreateRequest $request): Type
     {
 
@@ -28,13 +28,11 @@ final class TypeService
         );
     }
 
-
     public function removeByAdmin(int $id): void
     {
         $type = $this->getType($id);
         $type->delete();
     }
-
 
     private function getType($id): Type
     {

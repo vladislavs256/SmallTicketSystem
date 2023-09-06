@@ -26,7 +26,7 @@ final class TicketController extends Controller
         $user = Auth::user();
         $ticketTypes = Type::all();
 
-        return view('tickets.index', compact( 'ticketTypes', 'user'));
+        return view('tickets.index', compact('ticketTypes', 'user'));
     }
 
     public function view(Ticket $ticket)
@@ -92,10 +92,10 @@ final class TicketController extends Controller
 
     private function checkAccess(Ticket $ticket): void
     {
-        if (!Gate::allows('manage-own-ticket', $ticket)) {
-            if (!Gate::allows('manage-tickets')) {
+        if (! Gate::allows('manage-own-ticket', $ticket)) {
+            if (! Gate::allows('manage-tickets')) {
                 throw new PermsissionDeniedException();
-            };
+            }
         }
     }
 }

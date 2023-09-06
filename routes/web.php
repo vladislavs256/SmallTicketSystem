@@ -25,13 +25,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 Route::middleware('auth')->group(function () {
     Route::get('/', [TicketController::class, 'index'])->name('ticket.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
 
     Route::post('/admin/tickets/message/{ticket}', [CommentController::class, 'create'])->name('admin.tickets.message');
 
@@ -51,8 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/type/edit/{type}', [TypeController::class, 'editForm'])->name('type.edit');
     Route::put('/type/update/{type}', [TypeController::class, 'edit'])->name('type.update');
     Route::get('/type/index', [TypeController::class, 'index'])->name('type.index');
-
-
 
 });
 Route::post('/ticket/reopen/{ticket}', [\App\Http\Controllers\Admin\TicketController::class, 'reopen'])->name('tickets.reopen');

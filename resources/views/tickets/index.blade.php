@@ -1,20 +1,20 @@
 <x-app-layout>
 
     @if(!$user->isAdmin())
-    <form method="GET" action="{{ route('tickets.create')}}">
+    <form method="GET" action="{{ route('tickets.create') }}">
         @csrf
         @method('GET')
         <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Create Ticket</button>
 
     </form>
         @else
-            <form method="GET" action="{{ route('type.index')}}">
+            <form method="GET" action="{{ route('type.index') }}">
                 @csrf
                 @method('GET')
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Type index</button>
 
             </form>
-        <form method="GET" action="{{ route('type.create')}}">
+        <form method="GET" action="{{ route('type.create') }}">
             @csrf
             @method('GET')
             <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-2">Create Type</button>
@@ -65,6 +65,36 @@
     </div>
 </x-app-layout>
 
+
+<!-- Comment Modal -->
+<div class="container">
+
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true" style="top: 50%; transform: translateY(-50%)">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Add Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="commentForm">
+                    @csrf
+                    <div class="form-group">
+                        <label for="comment">Comment</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="4"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitComment">Submit Comment</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 
 <script>
@@ -160,21 +190,13 @@
         $('#tickets').on('click', '.btn-comment', function() {
             var ticketId = $(this).data('ticket-id');
 
-            $.ajax({
-                type: 'POST',
-                url: '/admin/tickets/message/' + ticketId,
-                data: {
-                    _token: '{{ csrf_token() }}',
-                },
-                success: function(data) {
-                    console.log('Ticket closed successfully');
-                    table.ajax.reload();
-                },
-                error: function(error) {
-                    console.error('Error closing ticket:', error);
-                }
-            });
+            // Set the ticketId in the comment modal for reference
+            $('#commentModal').data('ticket-id', ticketId);
+
+            // Open the comment modal
+            $('#commentModal').modal('show');
         });
+
 
         $('#tickets').on('click', '.btn-reopen', function() {
             var ticketId = $(this).data('ticket-id');

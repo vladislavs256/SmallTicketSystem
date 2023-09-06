@@ -36,7 +36,7 @@ final class TicketService
     public function removeByOwner(int $id): void
     {
         $ticket = $this->getTicket($id);
-        if (!$ticket->canBeRemoved()) {
+        if (! $ticket->canBeRemoved()) {
             throw new \DomainException('Unable to remove active ticket');
         }
 
@@ -87,7 +87,7 @@ final class TicketService
         $ticket = Ticket::new($userId,
             $request['subject'],
             $request['content'],
-            (int)$request['type'],
+            (int) $request['type'],
         );
         $this->storeAttachments($request, $ticket);
 
@@ -106,7 +106,7 @@ final class TicketService
 
         $query = Ticket::orderBy('id');
 
-        if (!$isAdmin) {
+        if (! $isAdmin) {
             $query->forUser(Auth::user());
         }
 
@@ -126,7 +126,7 @@ final class TicketService
     private function applyFilters(Request $request, $query)
     {
         if ($request->has('search.value')) {
-            $query->where('subject', 'like', '%' . $request->input('search.value') . '%');
+            $query->where('subject', 'like', '%'.$request->input('search.value').'%');
         }
 
         return $query;
