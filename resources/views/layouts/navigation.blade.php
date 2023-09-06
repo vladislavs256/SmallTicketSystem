@@ -98,3 +98,5 @@
         </div>
     </div>
 </nav>
+
+@include('layouts.partials.flash')

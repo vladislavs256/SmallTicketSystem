@@ -33,7 +33,7 @@ return new class extends Migration
                 'email_verified_at' => now(),
                 'status' => 'active',
                 'role' => 'admin',
-                'password' => Hash::make('admin123'), // password
+                'password' => Hash::make('admin123'),
                 'remember_token' => Str::random(10),
             ]
         );

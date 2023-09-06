@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="flex flex-row mb-3">
-        @if ($ticket->canBeRemoved())
+        @if (!$ticket->isClosed())
 
             <form method="POST" action="{{ route('ticket.destroy', $ticket) }}" class="mr-1">
                 @csrf
@@ -13,7 +13,13 @@
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Close</button>
 
             </form>
+        @else
+            <form method="POST" action="{{ route('tickets.reopen', ['ticket' => $ticket]) }}">
+                @csrf
+                @method('POST')
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Reopen</button>
 
+            </form>
         @endif
     </div>
 
