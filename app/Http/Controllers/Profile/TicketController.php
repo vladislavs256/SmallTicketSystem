@@ -87,7 +87,7 @@ final class TicketController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('ticket.view', ['ticket' => $ticket->id]);
+        return back()->with('success');
     }
 
     private function checkAccess(Ticket $ticket): void

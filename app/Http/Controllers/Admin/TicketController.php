@@ -32,6 +32,7 @@ final class TicketController extends Controller
         try {
             $this->service->reopen(Auth::id(), $ticket->id);
         } catch (\DomainException $e) {
+
             return back()->with('error', $e->getMessage());
         }
 

@@ -21,7 +21,7 @@ class TicketFactory extends Factory
     {
         return [
             'user_id' => random_int(1, 10),
-            'subject' => fake()->title(),
+            'subject' => fake()->streetName(),
             'content' => fake()->text(),
             'status' => 'new',
             'type_id' => random_int(1,3),
