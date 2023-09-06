@@ -12,10 +12,24 @@ final class Type extends Model
 
     protected $table = 'ticket_types';
 
-
-
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public static function new(string $name): self
+    {
+        $type = self::create([
+            'name' => $name,
+        ]);
+
+        return $type;
+    }
+
+    public function edit(string $name): void
+    {
+        $this->update([
+            'name' => $name,
+        ]);
     }
 }

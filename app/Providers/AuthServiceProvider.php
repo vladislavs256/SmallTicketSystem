@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('manage-tickets', function (User $user) {
-            return $user->isAdmin() || $user->isModerator();
+            return $user->isAdmin();
         });
     }
 }

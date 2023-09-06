@@ -1,8 +1,7 @@
 <?php
-
 declare(strict_types=1);
 
-namespace App\Http\Requests\Ticket;
+namespace App\Http\Requests\Type;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -16,8 +15,7 @@ final class EditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => 'required|string|max:255',
-            'content' => 'required|string',
+            'name' => 'required|string|max:255',
         ];
     }
 }

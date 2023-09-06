@@ -10,11 +10,11 @@ use App\Http\Requests\Ticket\MessageRequest;
 use App\Models\Tickets\Attachment;
 use App\Models\Tickets\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 final class TicketService
 {
-
     public function approve(int $userId, int $id): void
     {
         $ticket = $this->getTicket($id);
@@ -32,12 +32,14 @@ final class TicketService
         $ticket = $this->getTicket($id);
         $ticket->reopen($userId);
     }
+
     public function removeByOwner(int $id): void
     {
         $ticket = $this->getTicket($id);
         if (!$ticket->canBeRemoved()) {
             throw new \DomainException('Unable to remove active ticket');
         }
+
         $ticket->delete();
     }
 
@@ -46,7 +48,6 @@ final class TicketService
         $ticket = $this->getTicket($id);
         $ticket->delete();
     }
-
 
     public function edit(int $id, EditRequest $request): void
     {
@@ -66,28 +67,30 @@ final class TicketService
                 ? $request->file('attachments')
                 : [$request->file('attachments')];
 
-                foreach ($files as $attachment) {
-                    $path = $attachment->store('attachments');
-                    $attachments[] = [
-                        'filename' => $attachment->getClientOriginalName(),
-                        'mime_type' => $attachment->getMimeType(),
-                        'size' => $attachment->getSize(),
-                        'path' => $path,
-                        'ticket_id' => $ticket->id
-                    ];
-                }
+            foreach ($files as $attachment) {
+                $path = $attachment->store('attachments');
+                $attachments[] = [
+                    'filename' => $attachment->getClientOriginalName(),
+                    'mime_type' => $attachment->getMimeType(),
+                    'size' => $attachment->getSize(),
+                    'path' => $path,
+                    'ticket_id' => $ticket->id,
+                ];
+            }
             Attachment::insert($attachments);
         }
     }
+
     public function create(int $userId, CreateRequest $request): Ticket
     {
 
-       $ticket = Ticket::new($userId,
+        $ticket = Ticket::new($userId,
             $request['subject'],
             $request['content'],
             (int)$request['type'],
         );
         $this->storeAttachments($request, $ticket);
+
         return $ticket;
     }
 
@@ -99,7 +102,14 @@ final class TicketService
 
     public function getTicketsData(Request $request)
     {
-        $query = Ticket::query();
+        $isAdmin = Auth::user()->isAdmin();
+
+        $query = Ticket::orderBy('id');
+
+        if (!$isAdmin) {
+            $query->forUser(Auth::user());
+        }
+
         $query = $this->applyFilters($request, $query);
         $query = $this->applySorting($request, $query);
 
@@ -116,7 +126,7 @@ final class TicketService
     private function applyFilters(Request $request, $query)
     {
         if ($request->has('search.value')) {
-            $query->where('subject', 'like', '%'.$request->input('search.value').'%');
+            $query->where('subject', 'like', '%' . $request->input('search.value') . '%');
         }
 
         return $query;

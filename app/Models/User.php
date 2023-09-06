@@ -49,6 +49,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRoles::Admin->value;
+    }
+
     public static function register(string $name, string $email, string $password): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
     {
         return static::query()->create([

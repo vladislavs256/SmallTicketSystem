@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Profile;
 
+use App\Exceptions\PermsissionDeniedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\CreateRequest;
-use App\Models\Tickets\Attachment;
 use App\Models\Tickets\Ticket;
 use App\Models\Tickets\Type;
 use App\Services\Ticket\TicketService;
@@ -23,22 +23,24 @@ final class TicketController extends Controller
 
     public function index()
     {
-        $tickets = Ticket::forUser(Auth::user())->orderBy('id')->paginate(100);
+        $user = Auth::user();
         $ticketTypes = Type::all();
 
-        return view('tickets.index', compact('tickets', 'ticketTypes'));
+        return view('tickets.index', compact( 'ticketTypes', 'user'));
     }
 
     public function view(Ticket $ticket)
     {
-        return view('tickets.view', compact('ticket', ));
+        return view('tickets.view', compact('ticket'));
     }
 
     public function create()
     {
         $types = Type::query()->get();
+
         return view('tickets.create', compact('types'));
     }
+
     public function destroy(Ticket $ticket)
     {
         $this->checkAccess($ticket);
@@ -61,6 +63,7 @@ final class TicketController extends Controller
 
         return redirect()->route('ticket.view', $ticket);
     }
+
     public function getTicketsData(Request $request)
     {
         $responseData = $this->service->getTicketsData($request);
@@ -78,6 +81,8 @@ final class TicketController extends Controller
         $this->checkAccess($ticket);
         try {
             $this->service->close(Auth::id(), $ticket->id);
+        } catch (PermsissionDeniedException $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], $e->getStatusCode());
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -87,8 +92,10 @@ final class TicketController extends Controller
 
     private function checkAccess(Ticket $ticket): void
     {
-        if (! Gate::allows('manage-own-ticket', $ticket)) {
-            abort(403);
+        if (!Gate::allows('manage-own-ticket', $ticket)) {
+            if (!Gate::allows('manage-tickets')) {
+                throw new PermsissionDeniedException();
+            };
         }
     }
 }

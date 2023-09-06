@@ -7,5 +7,5 @@ namespace App\Models\Enum;
 enum UserRoles: string
 {
     case User = 'user';
-    case Admin = 'Admin';
+    case Admin = 'admin';
 }

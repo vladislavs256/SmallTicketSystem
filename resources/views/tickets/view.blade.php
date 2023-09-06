@@ -65,7 +65,8 @@
                                         Name: {{ $attachment->filename }},
                                         <a href="{{ Storage::url($attachment->path)  }}">View link</a>,
                                         ID: {{ $attachment->id }}
-                                        <a href="{{ Storage::url($attachment->path) }}" download="{{$attachment->name}}.jpg">Download Attachment</a>
+                                        <a href="{{ Storage::url($attachment->path) }}"
+                                           download="{{$attachment->name}}.jpg">Download Attachment</a>
                                     </li>
                                 </ul>
 
@@ -76,20 +77,6 @@
                 @else
                     No attachments found.
                 @endif
-                <tr>
-                    <th class="border border-gray-300 py-2 px-4">Author</th>
-                    <td class="border border-gray-300 py-2 px-4">{{ $ticket->user->name }}</td>
-                </tr>
-                <tr>
-                    <th class="border border-gray-300 py-2 px-4">Author</th>
-                    <td class="border border-gray-300 py-2 px-4">{{ $ticket->user->name }}</td>
-                </tr>
-                <tr>
-                    <th class="border border-gray-300 py-2 px-4">Author</th>
-                    <td class="border border-gray-300 py-2 px-4">{{ $ticket->user->name }}</td>
-                </tr>
-
-
                 </tbody>
             </table>
         </div>
@@ -186,8 +173,15 @@
                     fetchComments();
                 })
                 .catch(function (error) {
-                    console.error("Error sending message:", error);
+                    if (error.response && error.response.data && error.response.data.error) {
+                        const errorMessage = error.response.data.error;
+                        console.error("Error sending message:", errorMessage);
+                        alert("Error sending message: " + errorMessage);
+                    } else {
+                        console.error("Error sending message:", error);
+                    }
                 });
+
         });
 
         function fetchComments() {

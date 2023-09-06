@@ -10,5 +10,4 @@ class Attachment extends Model
     use HasFactory;
 
     protected $table = 'attachments';
-
 }

@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Uuid;
 
 class Ticket extends Model
 {
@@ -50,6 +49,7 @@ class Ticket extends Model
     {
         return $this->attachments;
     }
+
     public static function new(int $userId, string $subject, string $content, int $typeId): self
     {
         $ticket = self::create([
@@ -59,7 +59,6 @@ class Ticket extends Model
             'status' => Status::NEW,
             'type_id' => $typeId,
         ]);
-
 
         $ticket->setStatus(Status::NEW, $userId);
 
@@ -128,6 +127,10 @@ class Ticket extends Model
     public function isClosed(): bool
     {
         return $this->status === Status::CLOSED;
+    }
+    public function scopeNotClosed($query)
+    {
+        return $query->where('status', '!=', Status::CLOSED);
     }
 
     public function canBeRemoved(): bool
