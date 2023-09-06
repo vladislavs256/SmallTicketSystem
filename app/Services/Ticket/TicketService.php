@@ -39,15 +39,9 @@ final class TicketService
         if ($ticket->canBeRemoved()) {
             throw new \DomainException('Unable to remove active ticket');
         }
-
         $ticket->delete();
     }
 
-    public function removeByAdmin(int $id): void
-    {
-        $ticket = $this->getTicket($id);
-        $ticket->delete();
-    }
 
     public function edit(int $id, EditRequest $request): void
     {
