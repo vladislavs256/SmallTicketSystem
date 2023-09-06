@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/tickets/message/{ticket}', [CommentController::class, 'create'])->name('admin.tickets.message');
 
     Route::get('/tickets/data', [TicketController::class, 'getTicketsData'])->name('tickets.data');
-    Route::post('/tickets/store/data', [TicketController::class, 'store'])->name('tickets.store');
+    Route::post('/tickets/store/data', [TicketController::class, 'store'])->name('ticket.store');
     Route::get('/ticket/create', [TicketController::class, 'create'])->name('tickets.create');
     Route::post('/messages/{ticket}', [CommentController::class, 'index'])->name('messages.index');
     Route::get('/ticket/{ticket}', [TicketController::class, 'view'])->name('ticket.view');

@@ -17,9 +17,10 @@
 
             <div class="mb-4">
                 <label for="name" class="block text-gray-600 font-semibold mb-2">Name</label>
-                <input type="text" class="form-input w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500" id="name" name="name" value="{{ old('name', $type->name) }}">
+                <input type="text"
+                       class="form-input w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                       id="name" name="name" value="{{ old('name', $type->name) }}">
             </div>
-
 
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Update Type</button>
         </form>

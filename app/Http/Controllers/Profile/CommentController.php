@@ -28,7 +28,6 @@ final class CommentController extends Controller
 
     public function create(Ticket $ticket, MessageRequest $request)
     {
-
         try {
             $this->checkAccess($ticket);
             $this->service->message(Auth::id(), $ticket->id, $request);

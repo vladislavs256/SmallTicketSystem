@@ -1,6 +1,6 @@
 
 chmod:
-	sudo chmod 777 -R storage/
+	sudo chmod -R 777 storage/
 link:
 	php artisan storage:link
 init:

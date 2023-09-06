@@ -18,7 +18,8 @@ final class CreateRequest extends FormRequest
         return [
             'subject' => 'required|string|max:255',
             'content' => 'required|string',
-            'type' => 'required|int',
+            'type' => 'required|exists:ticket_types,id',
+            'attachments' => 'nullable|array|max:3',
             'attachments.*' => 'nullable|file|max:5120',
         ];
     }

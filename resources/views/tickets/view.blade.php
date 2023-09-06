@@ -193,7 +193,7 @@
                     commentsContainer.appendChild(newMessage);
                 })
                 .catch(function (error) {
-                    console.error("Ошибка при получении комментариев:", error);
+                    console.error("Error sending message:", error);
                 });
         }
     });
