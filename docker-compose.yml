@@ -18,6 +18,14 @@ services:
             - ./:/var/www
         depends_on:
             - sqlite
+    php-cli:
+        build:
+            context: ./
+            dockerfile: docker/php-cli.docker
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - sqlite
     sqlite:
         image: keinos/sqlite3
         volumes:
