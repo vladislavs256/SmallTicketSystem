@@ -28,14 +28,14 @@ return new class extends Migration
         });
 
         DB::table('users')->insert([
-                'name' => 'admin',
-                'email' => 'admin@email.com',
-                'email_verified_at' => now(),
-                'status' => 'active',
-                'role' => 'admin',
-                'password' => Hash::make('admin123'),
-                'remember_token' => Str::random(10),
-            ]
+            'name' => 'admin',
+            'email' => 'admin@email.com',
+            'email_verified_at' => now(),
+            'status' => 'active',
+            'role' => 'admin',
+            'password' => Hash::make('admin123'),
+            'remember_token' => Str::random(10),
+        ]
         );
     }
 

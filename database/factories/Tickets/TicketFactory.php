@@ -24,7 +24,7 @@ class TicketFactory extends Factory
             'subject' => fake()->streetName(),
             'content' => fake()->text(),
             'status' => 'new',
-            'type_id' => random_int(1,3),
+            'type_id' => random_int(1, 3),
             'attached_files' => null,
         ];
     }

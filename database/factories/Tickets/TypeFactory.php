@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TypeFactory extends Factory
 {
     protected $model = Type::class;
+
     /**
      * Define the model's default state.
      *
@@ -21,7 +22,7 @@ class TypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->city()
+            'name' => fake()->city(),
         ];
     }
 }

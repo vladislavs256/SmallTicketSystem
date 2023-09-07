@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
 
         Ticket::factory(100)->create();
 
-//        User::factory()->create([
-//            'name' => 'admin',
-//            'email' => 'admin@email.com',
-//            'email_verified_at' => now(),
-//            'status' => 'active',
-//            'role' => 'admin',
-//            'password' => Hash::make('admin123'),
-//            'remember_token' => Str::random(10),
-//        ]);
+        //        User::factory()->create([
+        //            'name' => 'admin',
+        //            'email' => 'admin@email.com',
+        //            'email_verified_at' => now(),
+        //            'status' => 'active',
+        //            'role' => 'admin',
+        //            'password' => Hash::make('admin123'),
+        //            'remember_token' => Str::random(10),
+        //        ]);
     }
 }

@@ -8,7 +8,7 @@ use App\Http\Requests\Type\CreateRequest;
 use App\Http\Requests\Type\EditRequest;
 use App\Models\Tickets\Type;
 
-final class TypeService
+class TypeService
 {
     public function create(CreateRequest $request): Type
     {

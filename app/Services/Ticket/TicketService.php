@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-final class TicketService
+class TicketService
 {
     public function approve(int $userId, int $id): void
     {
@@ -41,7 +41,6 @@ final class TicketService
         }
         $ticket->delete();
     }
-
 
     public function edit(int $id, EditRequest $request): void
     {
@@ -77,7 +76,8 @@ final class TicketService
 
     public function create(int $userId, CreateRequest $request): Ticket
     {
-        $ticket = Ticket::new($userId,
+        $ticket = Ticket::new(
+            $userId,
             $request['subject'],
             $request['content'],
             (int) $request['type'],
