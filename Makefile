@@ -4,7 +4,7 @@ up: docker-down docker-build docker-up npm-run
 
 chmod:
 	sudo chmod -R 777 storage/
-	sudo chmod +w data/
+	sudo chmod -R 777 data/
 link:
 	php artisan storage:link
 copy-env:
