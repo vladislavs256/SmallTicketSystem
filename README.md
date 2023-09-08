@@ -21,10 +21,10 @@
     <img src="https://avatars.githubusercontent.com/u/45405871?s=400&u=6b3f9774b0dd21e79ca4fe7c2676208956f64350&v=4" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Small Ticket System</h3>
+<h3 align="center">Ticket system</h3>
 
   <p align="center">
-    This is Test task for Databank 
+    Test task for Databank 
   </p>
 </div>
 
@@ -60,7 +60,7 @@
 
 https://github.com/vladislavs256/SmallTicketSystem/assets/45405871/9a416e13-47db-473b-bcc7-7e64fba407b6
 
-# Create Ticket System using Nginx, PHP 8, and Laravel 9+
+# Create ticket system using Nginx, PHP 8, and Laravel 9+
 
 ## Mandatory Requirements:
 
@@ -117,19 +117,14 @@ You need install docker to launch this project if you don't have it
    ```sh
    git clone https://github.com/vladislavs256/SmallTicketSystem.git
    ```
-2. Use make init for up docker containers
+2. Use make init to launch docker containers
    ```sh
    make init 
    ```
-3. Copy .env.example to .env directory of project 
-   ```js
-   cp .env.example .env
-   ```
+   
+ 
+ 
 
-4. if database not created create it 
-   ```js
-   touch data/database.sqlite
-   ```
 
 
 
@@ -151,7 +146,6 @@ Password: admin123
 - [ ] Add functional tests
 - [ ] Use vue js instead jquery
 - [ ] Edit layouts
-    - [ ] Maybe make own login registration logic
 
 See the [open issues](https://github.com/vladislavs256/SmallTicketSystem/issues) for a full list of proposed features (and known issues).
 
@@ -162,7 +156,6 @@ See the [open issues](https://github.com/vladislavs256/SmallTicketSystem/issues)
 ## Contact
 
 Email - vladislavsKudrins@gmail.com <br>
-Project Link: [https://github.com/vladislavs256/SmallTicketSystem](https://github.com/vladislavs256/SmallTicketSystem)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
