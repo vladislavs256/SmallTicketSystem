@@ -20,8 +20,8 @@ services:
             - sqlite
     php-cli:
         build:
-            context: ./docker
-            dockerfile: php-cli.docker
+            context: ./
+            dockerfile: docker/php-cli.docker
         volumes:
             - ./:/var/www
         depends_on:
@@ -30,9 +30,12 @@ services:
     frontend-nodejs:
         image: node:20-bullseye
         volumes:
-            - ./:/var/www/frontend
-        working_dir: /var/www/frontend
+            - ./:/var/www/
+        working_dir: /var/www/
         tty: true
+        user: root
+        ports:
+            - 5173:5173
     sqlite:
         image: keinos/sqlite3
         volumes:
