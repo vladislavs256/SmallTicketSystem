@@ -1,4 +1,7 @@
 <x-app-layout>
+
+    <div class="container mx-auto mt-10 max-w-6xl">
+
     <div class="flex flex-row mb-3">
         @if (!$ticket->isClosed())
 
@@ -160,6 +163,7 @@
     <div id="messageContainer">
     </div>
 
+    </div>
 
 </x-app-layout>
 <script>
