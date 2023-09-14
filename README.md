@@ -133,7 +133,7 @@ You need install docker to launch this project if you don't have it
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Server running on http://www.localhost:8080
+Server running on http://localhost:8080
 
 Admin account is<br>
 Email: admin@email.com <br>
