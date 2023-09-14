@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 final class TicketController extends Controller
 {
     public function __construct(
-        private TicketService $service
     ) {
         $this->middleware('can:manage-tickets');
     }
@@ -27,15 +26,5 @@ final class TicketController extends Controller
 
     }
 
-    public function reopen(Ticket $ticket)
-    {
-        try {
-            $this->service->reopen(Auth::id(), $ticket->id);
-        } catch (\DomainException $e) {
 
-            return back()->with('error', $e->getMessage());
-        }
-
-        return back()->with('success');
-    }
 }

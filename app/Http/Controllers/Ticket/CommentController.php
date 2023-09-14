@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Profile;
+namespace app\Http\Controllers\Ticket;
 
 use App\Exceptions\PermsissionDeniedException;
 use App\Http\Controllers\Controller;

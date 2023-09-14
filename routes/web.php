@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Profile\CommentController;
-use App\Http\Controllers\Profile\TicketController;
-use App\Http\Controllers\Profile\TypeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Ticket\CommentController;
+use App\Http\Controllers\Ticket\TicketController;
+use App\Http\Controllers\Ticket\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/type/index', [TypeController::class, 'index'])->name('type.index');
 
 });
-Route::post('/ticket/reopen/{ticket}', [\App\Http\Controllers\Admin\TicketController::class, 'reopen'])->name('tickets.reopen');
+Route::post('/ticket/reopen/{ticket}', [TicketController::class, 'reopen'])->name('tickets.reopen');
 
 require __DIR__.'/auth.php';

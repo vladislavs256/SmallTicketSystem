@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Profile;
+namespace app\Http\Controllers\Ticket;
 
 use App\Exceptions\PermsissionDeniedException;
 use App\Http\Controllers\Controller;
@@ -89,6 +89,17 @@ final class TicketController extends Controller
 
         return back()->with('success');
     }
+    public function reopen(Ticket $ticket)
+    {
+        try {
+            $this->service->reopen(Auth::id(), $ticket->id);
+        } catch (\DomainException $e) {
+
+            return back()->with('error', $e->getMessage());
+        }
+
+        return back()->with('success');
+    }
 
     private function checkAccess(Ticket $ticket): void
     {
@@ -98,4 +109,6 @@ final class TicketController extends Controller
             }
         }
     }
+
+
 }

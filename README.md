@@ -24,7 +24,7 @@
 <h3 align="center">Ticket system</h3>
 
   <p align="center">
-    Test task for Databank 
+    Test task  
   </p>
 </div>
 
@@ -64,27 +64,28 @@ https://github.com/vladislavs256/SmallTicketSystem/assets/45405871/9a416e13-47db
 
 ## Mandatory Requirements:
 
-- Data stored in an SQLite database.
-- User registration via email and name.
-- After registration, users can:
-    - View ticket history.
-    - Create new tickets.
-    - Comment on and close their open tickets.
-- Administrator account with access to all tickets.
-- Tickets must include:
+- Data stored in an SQLite database. [Database file](data/database.sqlite)
+- User registration via email and name. [Authorization-Controllers](app/Http/Controllers/Auth)
+- After registration, users can: 
+    - View ticket history. [TicketControoler(view)](app/Http/Controllers/Ticket/TicketController.php)
+    - Create new tickets. [TicketController(create)](app/Http/Controllers/Ticket/TicketController.php)
+    - Comment on and close their open tickets. [TicketController(reopen)(close)](app/Http/Controllers/Ticket/TicketController.php)
+- Administrator account with access to all tickets. [TicketService(IsAdmin)](app/Services/Ticket/TicketService.php)
+- Tickets must include: [create.blade.php](resources/views/tickets/create.blade.php)
     - Type (selected from a list).
     - Text (HTML tags not allowed).
     - Status (new, in progress, closed).
 - Validation of input data on client and server side.
+- [Server validation](app/Http/Requests/)
 
 ## Additional Requirements:
 
-- Attach up to 3 files to a ticket, with total size not exceeding 5 MB; files should be viewable and/or downloadable.
-- Utilize Laravel migration for admin account.
-- Implement AJAX for adding/updating comments.
-- Allow administrator to manage ticket types (add, edit, delete).
-- Enable sorting, filtering, and searching by any field in the list of tickets.
-- Allow leaving a comment or closing a ticket directly from the ticket table (if not closed).
+- Attach up to 3 files to a ticket, with total size not exceeding 5 MB; files should be viewable and/or downloadable. [ServerValidation](app/Http/Requests/Ticket/CreateRequest.php)
+- Utilize Laravel migration for admin account.[Migration file](database/migrations/2014_10_12_000000_create_users_table.php)
+  - Implement AJAX for adding/updating comments.[blade(in script tag)](resources/views/tickets/view.blade.php)
+- Allow administrator to manage ticket types (add, edit, delete).[Typecontroller](app/Http/Controllers/Ticket/TypeController.php) [View Blade](resources/views/type)
+- Enable sorting, filtering, and searching by any field in the list of tickets.[library DataTables](resources/views/tickets/index.blade.php)
+- Allow leaving a comment or closing a ticket directly from the ticket table (if not closed).[In blade](resources/views/tickets/index.blade.php)
 - Protect all forms from CSRF.
 
 
@@ -147,7 +148,7 @@ Password: admin123
 
 - [ ] Add functional tests
 - [ ] Use vue js instead jquery
-- [ ] Edit layouts
+- [x] Edit layouts
 
 See the [open issues](https://github.com/vladislavs256/SmallTicketSystem/issues) for a full list of proposed features (and known issues).
 

@@ -80,7 +80,7 @@ class TicketService
             $userId,
             $request['subject'],
             $request['content'],
-            (int) $request['type'],
+            (int)$request['type'],
         );
         $this->storeAttachments($request, $ticket);
 
@@ -95,14 +95,8 @@ class TicketService
 
     public function getTicketsData(Request $request)
     {
-        $isAdmin = Auth::user()->isAdmin();
 
-        $query = Ticket::orderBy('id');
-
-        if (! $isAdmin) {
-            $query->forUser(Auth::user());
-        }
-
+        $query = $this->getQueryTickets();
         $query = $this->applyFilters($request, $query);
         $query = $this->applySorting($request, $query);
 
@@ -116,10 +110,24 @@ class TicketService
         return $responseData;
     }
 
+    private function getQueryTickets()
+    {
+        $query = Ticket::orderBy('id');
+        if (!$this->userIsAdmin()) {
+            $query->forUser(Auth::user());
+        }
+        return $query;
+    }
+
+    private function userIsAdmin(): bool
+    {
+        return Auth::user()->isAdmin();
+    }
+
     private function applyFilters(Request $request, $query)
     {
         if ($request->has('search.value')) {
-            $query->where('subject', 'like', '%'.$request->input('search.value').'%');
+            $query->where('subject', 'like', '%' . $request->input('search.value') . '%');
         }
 
         return $query;

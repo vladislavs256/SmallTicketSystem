@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Profile;
+namespace app\Http\Controllers\Ticket;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Type\CreateRequest;
