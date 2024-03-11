@@ -28,7 +28,6 @@
   </p>
 </div>
 
-![Screenshot_1](https://github.com/vladislavs256/TicketSystem/assets/45405871/24b46793-e589-4737-9766-cdc34cf7ce0b)
 
 
 <!-- TABLE OF CONTENTS -->
