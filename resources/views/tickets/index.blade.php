@@ -1,14 +1,12 @@
 <x-app-layout>
     <div class="flex flex-wrap justify-center items-center space-between py-5">
-
-        @if(!$user->isAdmin())
+        @if($user->isAdmin())
             <form method="GET" action="{{ route('tickets.create') }}">
                 @csrf
                 @method('GET')
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Create Ticket
                 </button>
             </form>
-        @else
             <form method="GET" action="{{ route('type.index') }}" class="inset-y-19 right-1/3  px-2">
                 @csrf
                 @method('GET')
