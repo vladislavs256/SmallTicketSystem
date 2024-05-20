@@ -12,8 +12,7 @@
             <form method="GET" action="{{ route('type.index') }}" class="inset-y-19 right-1/3  px-2">
                 @csrf
                 @method('GET')
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded d-flex ">Type
-                    index
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded d-flex ">Type CRUD
                 </button>
             </form>
             <form method="GET" action="{{ route('type.create') }}" class="inset-y-8/2 right-1/4 ">
@@ -26,7 +25,7 @@
     </div>
 
 
-    <div class="container mt-5 max-w-6xl mx-auto">
+    <div class="container mt-5 mx-auto">
         <div class="table-responsive p-10 border-collapse flex justify-content-center rounded-3xl shadow-lg bg-gray-300/50">
             <div class="card w-full">
                 <table id="tickets" class="text-center rounded-xl border-2  shadow-lg p-3">
@@ -93,9 +92,9 @@
                     orderable: false,
                     "render": function (data, type, full, meta) {
                         if (data !== 'closed') {
-                            return 'Status ' + data + ' <button class="btn-close" data-ticket-id="' + full.id + '">Close Ticket</button>';
+                            return 'Status ' + data + ' <button class="btn-close bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded-full" data-ticket-id="' + full.id + '">Close Ticket</button>';
                         } else {
-                            return ' Status is ' + data + '  <button class="btn-reopen" data-ticket-id="' + full.id + '">Click to Reopen</button>';
+                            return ' Status is ' + data + '  <button class="btn-reopen bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-full" data-ticket-id="' + full.id + '">Click to Reopen</button>';
                         }
                     }
                 },
@@ -106,7 +105,7 @@
                     "data": "link",
                     "orderable": false,
                     "render": function (data) {
-                        return '<a href="' + data + '">' + "View" + '</a>';
+                        return '<a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" href="' + data + '">' + "View" + '</a>';
                     }
                 },
                 {
@@ -122,7 +121,7 @@
                                 '<button type="submit" class="bg-green-500 text-white px-2 py-1 rounded" id="submit-comment-' + data + '">Send</button>' +
                                 '<button type="button" class="bg-red-500 text-white px-2 py-1 rounded" id="cancel-comment-' + data + '">Cancel</button>' +
                                 '</form>' +
-                                '</div>' + '<button class="btn-comment" data-ticket-id="' + data + '">Comment</button>';
+                                '</div>' + '<button class="btn-comment bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-ticket-id="' + data + '">Comment</button>';
                         }
                     }
                 }

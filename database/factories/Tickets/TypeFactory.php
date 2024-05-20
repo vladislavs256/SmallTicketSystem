@@ -22,7 +22,11 @@ class TypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->titleMale(),
+            'name' => fake()->randomElement([
+                'Finance department',
+                'Technical department',
+                'Abuse department'
+            ]),
         ];
     }
 }
