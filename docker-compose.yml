@@ -18,6 +18,7 @@ services:
             - ./:/var/www
         depends_on:
             - sqlite
+        container_name: ticket_php_fpm
     php-cli:
         build:
             context: ./
@@ -26,6 +27,8 @@ services:
             - ./:/var/www
         depends_on:
             - sqlite
+
+        container_name: ticket_php_cli
         tty: true
     frontend-nodejs:
         image: node:20-bullseye
@@ -36,6 +39,8 @@ services:
         user: root
         ports:
             - 5173:5173
+
+        container_name: ticket_nodejs
     sqlite:
         image: keinos/sqlite3
         volumes:

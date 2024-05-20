@@ -6,7 +6,7 @@ chmod:
 	sudo chmod -R 777 storage/
 	sudo chmod -R 777 data/
 link:
-	php artisan storage:link
+	docker exec -it ticket_php_cli php artisan storage:link
 copy-env:
 	cp .env.example .env
 
@@ -16,10 +16,10 @@ docker-build:
 	docker-compose build
 
 node-install:
-	docker exec -it smallticketsystem_frontend-nodejs_1 npm install
+	docker exec -it ticket_nodejs npm install
 
 npm-run:
-	docker exec -it smallticketsystem_frontend-nodejs_1 npm run dev
+	docker exec -it ticket_nodejs npm run dev
 
 give-rules:
 	sudo chmod 755 -R node_modules/
@@ -28,12 +28,12 @@ docker-down:
 	docker-compose down
 
 backend-migrations:
-	docker exec -it smallticketsystem_php-fpm_1 php artisan migrate
+	docker exec -it ticket_php_fpm php artisan migrate
 
 encryption-key:
-	docker exec -it smallticketsystem_php-cli_1 php artisan key:generate
+	docker exec -it ticket_php_cli php artisan key:generate
 
 composer-install:
-	docker exec -it smallticketsystem_php-cli_1 composer install
+	docker exec -it ticket_php_cli composer install
 backend-seed:
-	docker exec -it smallticketsystem_php-fpm_1 php artisan migrate:fresh --seed
+	docker exec -it ticket_php_fpm php artisan migrate:fresh --seed
