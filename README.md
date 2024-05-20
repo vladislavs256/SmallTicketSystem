@@ -24,7 +24,7 @@
 <h3 align="center">Ticket system</h3>
 
   <p align="center">
-    Test task  
+    
   </p>
 </div>
 
@@ -106,19 +106,19 @@ https://github.com/vladislavs256/SmallTicketSystem/assets/45405871/9a416e13-47db
 
 ### Prerequisites
 
-You need install docker to launch this project if you don't have it
-* docker
+If you don't have Docker, command to install on Debian systems
+* Docker
   ```sh
   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   ```
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repository
    ```sh
    git clone https://github.com/vladislavs256/SmallTicketSystem.git
    ```
-2. Use make init to launch docker containers
+2. Type this command to launch project
    ```sh
    make init 
    ```
@@ -149,10 +149,6 @@ Password: admin123
 - [ ] Add functional tests
 - [ ] Use vue js instead jquery
 - [x] Edit layouts
-
-See the [open issues](https://github.com/vladislavs256/SmallTicketSystem/issues) for a full list of proposed features (and known issues).
-
-
 
 
 <!-- CONTACT -->
