@@ -107,7 +107,7 @@ https://github.com/vladislavs256/SmallTicketSystem/assets/45405871/9a416e13-47db
 ### Prerequisites
 
 If you don't have Docker, command to install on Debian systems
-* Docker
+* Docker and Docker-compose
   ```sh
   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   ```
