@@ -1,12 +1,6 @@
 <a name="readme-top"></a>
 
 
-
-<!--
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
