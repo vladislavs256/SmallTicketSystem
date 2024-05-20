@@ -58,8 +58,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-https://github.com/vladislavs256/SmallTicketSystem/assets/45405871/9a416e13-47db-473b-bcc7-7e64fba407b6
 
+https://github.com/vladislavs256/TicketSystem/assets/45405871/385a4b6a-ef1e-4104-a83f-26c60774a5a5
 # Create ticket system using Nginx, PHP 8, and Laravel 9+
 
 ## Mandatory Requirements:
