@@ -97,7 +97,7 @@ https://github.com/vladislavs256/SmallTicketSystem/assets/45405871/9a416e13-47db
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
-
+* ![](https://komarev.com/ghpvc/?username=TicketSystem)
 
 
 
