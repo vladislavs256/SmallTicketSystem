@@ -154,7 +154,7 @@ Password: admin123
 <!-- CONTACT -->
 ## Contact
 
-Email - vladislavsKudrins@gmail.com <br>
+Email - vladislavskudrins@gmail.com <br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
